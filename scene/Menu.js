@@ -20,15 +20,15 @@ class GameMenu extends Component {
         height: tHeight
       },
       text: {
+        color: 'white',
         fontSize: (tHeight < 900) ? 23 : (tHeight - 250) / 45,
         fontWeight: '900',
-        color: 'black',
         backgroundColor: 'rgba(0,0,0,0)',
         borderWidth: 1,
         paddingLeft: 25,
         paddingRight: 23,
         paddingTop: 8,
-        borderColor: 'black',
+        borderColor: 'white',
         width: 200,
         height: 40,
         textAlign: 'center'
@@ -38,7 +38,7 @@ class GameMenu extends Component {
       <View>
         <Image
           style={styles.image}
-          source={require('../images/pastel.jpg')}
+          source={require('../images/2590-Dark.jpg')}
         >
           <View>
             <Button

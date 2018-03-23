@@ -23,7 +23,7 @@ class Menu extends Component {
         paddingRight: 63,
         paddingTop: (tHeight < 900) ? 8 : (tHeight - 250) / 70,
         paddingBottom: (tHeight < 900) ? 8 : (tHeight - 250) / 70,
-        borderColor: 'black',
+        borderColor: 'white',
         textAlign: 'center'
       },
       image: {
@@ -63,7 +63,7 @@ class Menu extends Component {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={require('../images/pastel.jpg')}
+          source={require('../images/2590-Dark.jpg')}
         >
           {buttonArr.map(button => button)}
           <Text>{'\n'}</Text>

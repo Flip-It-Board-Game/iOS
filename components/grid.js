@@ -17,26 +17,13 @@ class Grid extends Component {
     super(props);
     this.state = {
       win: false,
-      fadeAnim: new Animated.Value(1),  // Initial value for opacity: 0,
+      fadeAnim: new Animated.Value(1)
     };
     this.num = 0;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.setCount({ count: 0 });
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.win)
-    if (this.props && this.props.bool.indexOf(true) === -1) {
-      Animated.timing(                  // Animate over time
-        this.state.fadeAnim,            // The animated value to drive
-        {
-          toValue: 0,                   // Animate to opacity: 1 (opaque)
-          duration: 700,              // Make it take a while
-        }
-      ).start();                        // Starts the animation
-    }
   }
 
   componentWillUnmount() {
@@ -44,8 +31,8 @@ class Grid extends Component {
   }
 
   render() {
-    let width = this.props.dimensions && this.props.dimensions.width;
-    let height = this.props.dimensions && this.props.dimensions.height;
+    width = this.props.dimensions && this.props.dimensions.width;
+    height = this.props.dimensions && this.props.dimensions.height;
     const gamePieceSize = tWidth * 0.81 / width;
     const num = width * height;
     let rowButtons = [];
@@ -78,7 +65,16 @@ class Grid extends Component {
     if (this.props && this.props.bool.indexOf(true) === -1) {
       setTimeout(() => {
         this.setState({ win: true });
-      }, 4000);
+      }, 1500);
+    }
+    if (this.props && this.props.bool.indexOf(true) === -1) {
+      Animated.timing(                  // Animate over time
+        this.state.fadeAnim,            // The animated value to drive
+        {
+          toValue: 0,                   // Animate to opacity: 1 (opaque)
+          duration: 700,              // Make it take a while
+        }
+      ).start();                        // Starts the animation
     }
     let { fadeAnim } = this.state;
     return (
@@ -86,29 +82,34 @@ class Grid extends Component {
         {this.state.win ? (
           <Image
               style={styles.backgroundGif}
-              source={require('../images/pastel.jpg')}
+              source={require('../images/3201.jpg')}
             >
-            <Reset />
+            <Text style={styles.text2}>Total Moves: {this.props.count.count}</Text>
+            <Text style={styles.text2}>Total Time: {this.props.completedTime}</Text>
             </Image>
         ) : (
             <Image
               style={styles.backgroundGif}
-              source={require('../images/pastel.jpg')}
+              source={require('../images/3201.jpg')}
             >
-              <Animated.View style={{ opacity: fadeAnim, justifyContent: 'center',
-        alignItems: 'center' }}>
+              <Animated.View style={{
+                opacity: fadeAnim,
+                justifyContent: 'center',
+                alignItems: 'center'
+                }}>
                 <Text style={styles.text2} key="moveCount">
                   Moves: {this.props.count.count}
                 </Text>
-                <Table borderStyle={{ borderWidth: 0, borderColor: 'white' }}>
+                <Table borderStyle={{
+                  borderWidth: 0,
+                  borderColor: 'white'
+                  }}>
                   <Rows
                     data={tableData}
                     style={styles.row}
                   />
                 </Table>
-
                 <Text style={{ fontSize: 5 }}>{'\n'}</Text>
-
                 <Timer />
                 <Reset />
               </Animated.View>
@@ -124,7 +125,8 @@ const mapState = state => {
     bool: state.bool,
     dimensions: state.dimensions,
     count: state.count,
-    won: state.won
+    won: state.won,
+    completedTime: state.completedTime
   };
 };
 

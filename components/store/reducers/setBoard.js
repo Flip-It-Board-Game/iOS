@@ -1,5 +1,3 @@
-const initialState = { width: 5, height: 5 };
-
 //Actions
 const WIDTH_HEIGHT = 'WIDTH_HEIGHT';
 
@@ -10,7 +8,7 @@ export function setDimensions(board) {
 }
 
 //Reducer
-export default function reducer(state = initialState, action) {
+export default function reducer(state = { width: 5, height: 5 }, action) {
   let newState = Object.assign({}, state);
 
   switch (action.type) {

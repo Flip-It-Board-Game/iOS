@@ -25,56 +25,15 @@ class youWon extends Component {
 
   seeStats = async () => {
     try {
-      const { moves, dimensions, completedTime } = this.props;
-      console.log('here')
-      for (let i = 2; i < 8; i++) {
-        //Get current state for Moves
-        let currentStatMoves = await AsyncStorage.getItem(`${i}${i}`)
-        let currentStat_2Moves = await AsyncStorage.getItem(`${i}${i + 1}`)
-        let currentStatTime = await AsyncStorage.getItem(`${i}${i}Time`)
-        let currentStat_2Time = await AsyncStorage.getItem(`${i}${i + 1}Time`)
-        //compare current vs incoming moves stat, save incoming if better performance than current
-        if (
-          dimensions.height === i &&
-          dimensions.width === i &&
-          (currentStatMoves > moves ||
-            currentStatMoves === null ||
-            currentStatMoves === 'N/A')
-        ) {
-          AsyncStorage.setItem(`${i}${i}`, moves.toString())
-        }
-        //compare current vs incoming moves stat, save incoming if better performance than current
-        if (
-          dimensions.height === i + 1 &&
-          dimensions.width === i &&
-          (currentStat_2Moves > moves ||
-            currentStat_2Moves === null ||
-            currentStatMoves === 'N/A')
-        ) {
-          AsyncStorage.setItem(`${i}${i + 1}`, moves.toString())
-        }
-        //compare current vs incoming time stat, save incoming if better performance than current
-        if (
-          dimensions.height === i &&
-          dimensions.width === i &&
-          (currentStatTime > gameTime ||
-            currentStatTime === null ||
-            currentStatMoves === 'N/A')
-        ) {
-          AsyncStorage.setItem(`${i}${i}Time`, gameTime.toString())
-        }
-        //compare current vs incoming time stat, save incoming if better performance than current
-        if (
-          dimensions.height === i + 1 &&
-          dimensions.width === i &&
-          (currentStat_2Time > gameTime ||
-            currentStat_2Time === null ||
-            currentStatMoves === 'N/A')
-        ) {
-          AsyncStorage.setItem(`${i}${i + 1}Time`, gameTime.toString())
-        }
-      }
-    } catch (error) { }
+      const { count, dimensions, completedTime } = this.props;
+      const boardSize = dimensions.height.toString();
+      await AsyncStorage.setItem(boardSize, count.toString())
+      await AsyncStorage.setItem(`${boardSize}Time`, completedTime.toString())
+      let currentStatMoves = await AsyncStorage.getItem(boardSize)
+      let currentStatTime = await AsyncStorage.getItem(`${boardSize}Time`)
+    } catch (error) {
+      console.log(error)
+    }
   }
   render() {
     const styles = styleYouWon(tWidth, tHeight)
@@ -85,9 +44,13 @@ class youWon extends Component {
           style={styles.backgroundGif}
           source={require('../images/3201.jpg')}
         >
-          <Text style={styles.text}>Level Complete{'\n'}</Text>
-          <Text style={styles.text}>Total Moves: {count}{'\n'}</Text>
-          <Text style={styles.text}>Total Time: {completedTime}</Text>
+          <View style={styles.box1}>
+            <View style={styles.box2}>
+              <Text style={styles.text}>Level Complete</Text>
+              <Text style={styles.text}>Total Moves: {count}</Text>
+              <Text style={styles.text2}>Total Time: {completedTime}</Text>
+            </View>
+          </View>
         </Image>
       </View>
     )
@@ -98,7 +61,6 @@ const mapstate = state => {
   return {
     moves: state.moves,
     dimensions: state.dimensions,
-
     count: state.count,
     completedTime: state.completedTime
   }

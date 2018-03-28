@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
-import { setTime, completionTime } from './store/store';
+import { styleTimer } from './styleSheet'
+import { setTime, completionTime } from './store';
 
 class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      seconds: this.props.nowTime
+      seconds: this.props.currentTime
     };
     this.tick = this.tick.bind(this);
     this.gameTime = 0;
@@ -26,11 +27,7 @@ class Timer extends Component {
     clearInterval(this.timer);
   }
 
-  tick() {
-    this.setState({ seconds: Date.now() - this.props.nowTime });
-  }
-
-  render() {
+  componentDidUpdate() {
     let elapsed = Math.round(this.state.seconds / 100);
     let seconds = (elapsed / 10).toFixed(1);
     const dispSeconds =
@@ -42,19 +39,16 @@ class Timer extends Component {
         ? Math.floor(seconds / 60)
         : '0'.concat(Math.floor(seconds / 60));
     this.gameTime = dispMinutes + ':' + dispSeconds;
+  }
+
+  tick() {
+    this.setState({ seconds: Date.now() - this.props.currentTime });
+  }
+
+  render() {
     return (
       <View>
-        <Text
-          style={{
-            fontSize: 40,
-            backgroundColor: 'rgba(0,0,0,0)',
-            color: 'white',
-            borderWidth: 3,
-            paddingLeft: 10,
-            paddingRight: 10,
-            borderColor: 'white'
-          }}
-        >
+        <Text style={styleTimer} >
           {this.gameTime}
         </Text>
       </View>
@@ -64,7 +58,7 @@ class Timer extends Component {
 
 const mapState = state => {
   return {
-    nowTime: state.nowTime,
+    currentTime: state.currentTime,
     completedTime: state.completedTime
   };
 };

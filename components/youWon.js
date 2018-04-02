@@ -10,9 +10,6 @@ import { styleYouWon } from './styleSheet'
 import Dimensions from 'Dimensions';
 const { height, width } = Dimensions.get('window');
 
-let tHeight = height
-let tWidth = width
-
 class youWon extends Component {
   constructor(props) {
     super(props)
@@ -27,16 +24,16 @@ class youWon extends Component {
     try {
       const { count, dimensions, completedTime } = this.props;
       const boardSize = dimensions.height.toString();
-      await AsyncStorage.setItem(boardSize, count.toString())
-      await AsyncStorage.setItem(`${boardSize}Time`, completedTime.toString())
-      let currentStatMoves = await AsyncStorage.getItem(boardSize)
-      let currentStatTime = await AsyncStorage.getItem(`${boardSize}Time`)
+      const currentStatMoves = await AsyncStorage.getItem(boardSize)
+      const currentStatTime = await AsyncStorage.getItem(`${boardSize}Time`)
+      if (+currentStatMoves > count || currentStatMoves === 'N/A') await AsyncStorage.setItem(boardSize, count.toString())
+      if (currentStatTime < completedTime || currentStatTime === 'N/A') await AsyncStorage.setItem(`${boardSize}Time`, completedTime.toString())
     } catch (error) {
       console.log(error)
     }
   }
   render() {
-    const styles = styleYouWon(tWidth, tHeight)
+    const styles = styleYouWon(width, height)
     const { count, completedTime } = this.props;
     return (
       <View >

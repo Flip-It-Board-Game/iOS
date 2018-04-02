@@ -8,14 +8,14 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      seconds: this.props.currentTime
+      seconds: this.props.currentTime,
+      gameTime: 0
     };
     this.tick = this.tick.bind(this);
-    this.gameTime = 0;
   }
 
   componentWillMount() {
-    setInterval(() => this.props.completionTime(this.gameTime), 1000);
+    setInterval(() => this.props.completionTime(this.state.gameTime), 1000);
     this.props.setTime(Date.now());
   }
 
@@ -27,18 +27,18 @@ class Timer extends Component {
     clearInterval(this.timer);
   }
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
     let elapsed = Math.round(this.state.seconds / 100);
     let seconds = (elapsed / 10).toFixed(1);
-    const dispSeconds =
+    const displaySeconds =
       Math.floor(seconds % 60) < 10
         ? '0'.concat(Math.floor(seconds) % 60)
         : Math.floor(seconds) % 60;
-    const dispMinutes =
+    const displayMinutes =
       Math.floor(seconds / 60).length > 1
         ? Math.floor(seconds / 60)
         : '0'.concat(Math.floor(seconds / 60));
-    this.gameTime = dispMinutes + ':' + dispSeconds;
+    this.setState({ gameTime: displayMinutes + ':' + displaySeconds });
   }
 
   tick() {
@@ -49,7 +49,7 @@ class Timer extends Component {
     return (
       <View>
         <Text style={styleTimer} >
-          {this.gameTime}
+          {this.state.gameTime}
         </Text>
       </View>
     );

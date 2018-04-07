@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingLeft: 50
   },
   text: {
-    backgroundColor: '#6b92b9',
+    backgroundColor: 'transparent',
     textAlign: 'center',
     color: 'white',
     justifyContent: 'center',
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingTop: 10,
-    backgroundColor: '#6b92b9',
+    backgroundColor: 'transparent',
     textAlign: 'center',
     color: 'black',
     fontSize: (tHeight < 800) ? (tHeight - 100) / 20 : (tHeight - 50) / 20,

@@ -46,8 +46,8 @@ class Instructions extends Component {
               <View >
               <Text style={styles.text}>
               {'\n'}
-              Object of the game is to make it so that each tile of the game board is green.
-              The tiles of the board can either be red or green.
+              Object of the game is to make it so that each tile of the game board is black.
+              The tiles of the board can either be white or black.
               Each time you click on a tile it will flip the tile to the opposite color. In addition
               to flipping the tile to a new color it will also flip the neighboring tiles (excluding diagonally adjacent tiles).
               {'\n'}{'\n'}

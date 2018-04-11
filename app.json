@@ -5,14 +5,17 @@
     "slug": "flip-title",
     "privacy": "public",
     "sdkVersion": "22.0.0",
-    "version": "1.1.2",
+    "version": "1.1.1",
     "orientation": "portrait",
     "primaryColor": "#6b92b9",
-    "icon": "./assets/icon/logo.png"
-  },
-  "ios": {
-    "supportsTablet": true,
-    "buildNumber": "6",
-    "bundleIdentifier": "com.GoodApps.FlipTile"
+    "icon": "./assets/icon/logo.png",
+    "loading":{
+      "icon":"./assets/icon/loading-icon.png"
+    },
+    "ios":{
+      "supportsTablet": true,
+      "buildNumber": "6",
+      "bundleIdentifier": "com.GoodApps.FlipTile"
+    }
   }
 }

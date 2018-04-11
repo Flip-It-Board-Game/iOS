@@ -4,16 +4,17 @@ import { Button } from 'native-base';
 import { connect } from 'react-redux';
 import { styleReset } from './styleSheet'
 import { reset, setBoard, setCount, setTime } from './store';
+import { PropTypes } from 'prop-types'
 
 const Reset = (props) => {
-
+  const { resetBoard, dimensions } = props
   return (
     <View>
       <Button
         transparent
         light
         onPress={() => {
-          props.resetBoard(props, props.dimensions.width, props.dimensions.height)
+          resetBoard(props, dimensions.width, dimensions.height)
         }}
       >
         <Text
@@ -27,10 +28,18 @@ const Reset = (props) => {
   );
 }
 
+Reset.propTypes = {
+  dimensions: PropTypes.object,
+  reset: PropTypes.func,
+  setBoard: PropTypes.func,
+  setCount: PropTypes.func,
+  setTime: PropTypes.func,
+  resetBoard: PropTypes.func
+}
+
 const mapState = state => {
   return {
     dimensions: state.dimensions,
-    count: state.count
   };
 };
 
@@ -41,12 +50,13 @@ const mapDispatch = dispatch => {
     setCount: num => dispatch(setCount(num)),
     setTime: time => dispatch(setTime(time)),
     resetBoard: (props, boardWidth, boardHeight) => {
-      props.setTime(Date.now());
-      props.setBoard({
+      const { setTime, setBoard, setCount } = props
+      setTime(Date.now());
+      setBoard({
         width: boardWidth,
         height: boardHeight
       });
-      props.setCount(0);
+      setCount(0);
     }
   };
 };
